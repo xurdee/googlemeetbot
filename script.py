@@ -3,9 +3,10 @@ from selenium.webdriver.firefox.options import Options
 import time
 import os
 import pause
+from datetime import datetime
 from pynput.keyboard import Controller
 #######YEAR#MONTH#DAY#HOUR#MINUTE###### DO NOT PUT ZERO BEFORE A NUMBER
-# pause.until(datetime(2020, 3, 27, 11, 29))
+# pause.until(datetime(2020, 8, 14, 10, 35))
 # MAIL & PASSWORD (THE MAIL U WILL USE TO ENTER TO THE MEET)
 
 def getCreds():
@@ -20,7 +21,7 @@ def getCreds():
 creds = getCreds()
 usernameStr = creds[0]
 passwordStr = creds[1]
-url_meet = 'https://meet.google.com/sfx-jvvz-xok'
+url_meet = 'https://meet.google.com/fen-zxns-wcp'
 options = Options()
 # options.add_argument("--headless")
 options.add_argument("--disable-infobars")
@@ -49,8 +50,26 @@ try:
 except Exception as e:
     print(e)
     browser.find_element_by_xpath("//span[@class='NPEfkd RveJvd snByac' and contains(text(), 'Ask to join')]").click()
-time.sleep(15)  # Time for which you want to wait before spamming
+time.sleep(500)  # Time for which you want to wait before spamming
 
+# When playing good
+# try:
+#     chatEveryoneButton = browser.find_element_by_xpath(
+#         "//div[@class='pHsCke']/div[@class='Jrb8ue']/div[@class='lvE3se']/div[@class='NzPR9b']/div[@class='uArJ5e UQuaGc kCyAyd kW31ib foXzLb ']")
+#     chatEveryoneButton.click()
+#     textArea = browser.find_element_by_xpath("//textarea[@class='KHxj8b tL9Q4c']")
+#     sendButton = browser.find_element_by_xpath(
+#         "/html/body/div[1]/c-wiz/div[1]/div/div[4]/div[3]/div[3]/div/div[2]/div[2]/div[2]/span[2]/div/div[3]/div[2]")
+#     time.sleep(2)
+#     textArea.send_keys("Good Morning Sir")
+#     sendButton.click()
+#
+# except Exception as e:
+#     print(e)
+#     pass
+
+
+# When Playing evil
 chatEveryoneButton = browser.find_element_by_xpath("//div[@class='pHsCke']/div[@class='Jrb8ue']/div[@class='lvE3se']/div[@class='NzPR9b']/div[@class='uArJ5e UQuaGc kCyAyd kW31ib foXzLb ']")
 chatEveryoneButton.click()
 textArea = browser.find_element_by_xpath("//textarea[@class='KHxj8b tL9Q4c']")
@@ -62,11 +81,11 @@ else:
     lines = ["Hmm...something went wrong today...but i will be back later..","i am BINOD!"]
 
 j=0
-while(j<10):
+while(j<20):
     for i in range(len(lines)):
         textArea.send_keys(lines[i])
         sendButton.click()
-        time.sleep(1)
+        # time.sleep(1)
     j+=1
 
 pause
