@@ -11,12 +11,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.firefox.options import Options
+from constants import Xpath, Id, String, Url
 import time
 import os
 
 
-# Get gmail login credentials
-def getCreds():
+def get_credentials():
     creds = []
     if os.path.isfile("credentials.txt"):
         with open("credentials.txt", "r") as f:
@@ -26,112 +26,44 @@ def getCreds():
     return creds
 
 
-#  Url's
-url_meet = 'https://meet.google.com/xvt-mgvy-tix'
-url_gLogin = 'https://accounts.google.com/ServiceLogin?service=mail&passive=true&rm=false&continue=https://mail.google.com/mail/&ss=1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1#identifier'
-
-# Configure Mozilla Options
-options = Options()
-# options.add_argument("--headless")
-options.add_argument("--disable-infobars")
-options.set_preference("permissions.default.microphone", 1)
-options.set_preference("permissions.default.camera", 1)
-
-# Choose driver
-driver = webdriver.Firefox(executable_path=r'C:\Drivers\geckodriver.exe',options=options)
-
-if __name__ == '__main__':
-    creds = getCreds()
-    username = creds[0]  # Email
-    password = creds[1]  # Password
-
-    driver.maximize_window()
-    driver.get(url_gLogin)
-    driver.maximize_window()
-
+def perform_gLogin():
     # Enter the email
-    WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='identifierId']"))).send_keys(
+    WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.XPATH, xpath.email_xpath))).send_keys(
         username)
     # Click next btn
-    WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.ID, "identifierNext"))).click()
+    WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.ID, ids.email_next_id))).click()
     # Enter the password
     WebDriverWait(driver, 100).until(
-        EC.element_to_be_clickable((By.XPATH, "//*[@id='password']/div[1]/div/div[1]/input"))).send_keys(password)
+        EC.element_to_be_clickable((By.XPATH, xpath.password_xpath))).send_keys(password)
     # Click the next btn
-    WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.ID, "passwordNext"))).click()
+    pass_nxt = WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.ID, ids.password_next_id)))
+    time.sleep(1)
+    pass_nxt.click()
 
-    time.sleep(3)  # After logging in to gmail wait for a moment...
 
-    # Wait for the meet url to load...
-    driver.get(url_meet)
-    time.sleep(15)
-
-    # Turn Off the Mic
-    WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.XPATH,
-                                                                 "/html/body/div[1]/c-wiz/div/div/div[4]/div[3]/div/div[2]/div/div/div[1]/div[1]/div[3]/div[1]/div/div/div"))).click()
-    # Turn Off the Camera
-    WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.XPATH,
-                                                                 "/html/body/div[1]/c-wiz/div/div/div[4]/div[3]/div/div[2]/div/div/div[1]/div[1]/div[3]/div[2]/div/div"))).click()
-
-    # Click on 'Ask to join' or 'Join now' btn
-    try:
-        driver.find_element_by_xpath("//span[@class='NPEfkd RveJvd snByac' and contains(text(), 'Join now')]").click()
-    except Exception as e:
-        print(e)
-        driver.find_element_by_xpath(
-            "//span[@class='NPEfkd RveJvd snByac' and contains(text(), 'Ask to join')]").click()
-
-    time.sleep(15)  # Time for which you want to wait before spamming
-
-    # When playing good
-    # try:
-    #     chatEveryoneButton = browser.find_element_by_xpath(
-    #         "//div[@class='pHsCke']/div[@class='Jrb8ue']/div[@class='lvE3se']/div[@class='NzPR9b']/div[@class='uArJ5e UQuaGc kCyAyd kW31ib foXzLb ']")
-    #     chatEveryoneButton.click()
-    #     textArea = browser.find_element_by_xpath("//textarea[@class='KHxj8b tL9Q4c']")
-    #     sendButton = browser.find_element_by_xpath(
-    #         "/html/body/div[1]/c-wiz/div[1]/div/div[4]/div[3]/div[3]/div/div[2]/div[2]/div[2]/span[2]/div/div[3]/div[2]")
-    #     time.sleep(2)
-    #     textArea.send_keys("Good Morning Sir")
-    #     sendButton.click()
-    #
-    # except Exception as e:
-    #     print(e)
-    #     pass
-
-    # When Playing evil
-    chatBtn = WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.XPATH,
-                                                                           "//div[@class='pHsCke']/div[@class='Jrb8ue']/div[@class='lvE3se']/div[@class='NzPR9b']/div[@class='uArJ5e UQuaGc kCyAyd kW31ib foXzLb ']"))).click()
+def start_spamming():
     start_time = time.time()
     start_time = round(start_time, 2)
-
-    # textArea = driver.find_element_by_xpath("//textarea[@class='KHxj8b tL9Q4c']")
-    # sendButton = driver.find_element_by_xpath(
-    #     "/html/body/div[1]/c-wiz/div[1]/div/div[4]/div[3]/div[3]/div/div[2]/div[2]/div[2]/span[2]/div/div[3]/div[2]")
-
     # Add the spam messages to a list
     if os.path.isfile("spammessages.txt"):
         with open("spammessages.txt", "r", encoding="utf8", errors="ignore") as spamfile:
             lines = spamfile.readlines()
     else:
         lines = ["Hmm...something went wrong today...but i will be back later..", "i am BINOD!"]
-
     j = 0
     end_time = time.time()
     end_time = round(end_time, 2)
     while j < 8:
-        print(f"loop {j+1}")
-        print(f"{end_time-start_time} seconds")
-        if end_time-start_time < 300.00:   # If running time of script is greater than 60 minutes quit...
+        print(f"loop {j + 1}")
+        print(f"{end_time - start_time} seconds")
+        if end_time - start_time < 300.00:  # If running time of script is greater than 60 minutes quit...
             for i in range(len(lines)):
-                print(f"quote {i+1}")
+                print(f"quote {i + 1}")
                 try:
-                    textArea = WebDriverWait(driver, 100).until(
-                        EC.element_to_be_clickable((By.XPATH, "//textarea[@class='KHxj8b tL9Q4c']")))
-                    textArea.send_keys(lines[i])
-                    sendButton = WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.XPATH,
-                                                                             "/html/body/div[1]/c-wiz/div[1]/div/div[4]/div[3]/div[3]/div/div[2]/div[2]/div[2]/span[2]/div/div[3]/div[2]")))
-                    sendButton.click()
+                    WebDriverWait(driver, 100).until(
+                        EC.element_to_be_clickable((By.XPATH, xpath.textArea_xpath))).send_keys(lines[i])
+                    WebDriverWait(driver, 100).until(
+                        EC.element_to_be_clickable((By.XPATH, xpath.sendBtn_xpath))).click()
                 except Exception as e:
                     print(e)
                     # If a dialog box appears dismiss it
@@ -142,14 +74,73 @@ if __name__ == '__main__':
             end_time = round(end_time, 2)
             j += 1
         else:
-            textArea = WebDriverWait(driver, 100).until(
-                EC.element_to_be_clickable((By.XPATH, "//textarea[@class='KHxj8b tL9Q4c']")))
             # display final message and quit...
-            textArea.send_keys(" GOODBYE FOLKS...CODED WITH LOVE BY 'XURDE'")
-
-            sendButton = WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.XPATH,
-                                                                                      "/html/body/div[1]/c-wiz/div[1]/div/div[4]/div[3]/div[3]/div/div[2]/div[2]/div[2]/span[2]/div/div[3]/div[2]")))
-            sendButton.click()
+            WebDriverWait(driver, 100).until(
+                EC.element_to_be_clickable((By.XPATH, xpath.textArea_xpath))).send_keys(string.exit_msg)
+            WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.XPATH, xpath.sendBtn_xpath))).click()
             break
+    return
 
+
+def greet_teacher():
+    try:
+        WebDriverWait(driver, 100).until(
+            EC.element_to_be_clickable((By.XPATH, xpath.textArea_xpath))).send_keys(string.greet_msg)
+        WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.XPATH, xpath.sendBtn_xpath))).click()
+    except Exception as ex:
+        print(ex)
+        pass
+    return
+
+
+#  ----------------------------- GLOBALS ---------------------------- #
+# Configure Mozilla Options
+options = Options()
+# options.add_argument("--headless")
+options.add_argument("--disable-infobars")
+options.set_preference("permissions.default.microphone", 1)
+options.set_preference("permissions.default.camera", 1)
+
+# Choose driver
+driver = webdriver.Firefox(executable_path=r'C:\Drivers\geckodriver.exe', options=options)
+
+# Creating instances
+url = Url()
+ids = Id()
+string = String()
+xpath = Xpath()
+
+creds = get_credentials()
+username = creds[0]  # Email
+password = creds[1]  # Password
+
+# ------------------------------------------------------------------- #
+
+if __name__ == '__main__':
+    driver.maximize_window()
+    driver.get(url.url_gLogin)
+    driver.maximize_window()
+    # Login to g-mail
+    perform_gLogin()
+    time.sleep(3)  # After logging in to gmail wait for a moment...
+    # Wait for the meet url to load...
+    driver.get(url.url_meet)
+    # Turn Off the Mic
+    WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.XPATH, xpath.mic_btn_xpath))).click()
+    # Turn Off the Camera
+    WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.XPATH, xpath.camera_btn_xpath))).click()
+    # Click on 'Ask to join' or 'Join now' btn
+    try:
+        WebDriverWait(driver, 3).until(EC.element_to_be_clickable((By.XPATH, xpath.joinNow_btn_xpath))).click()
+        # driver.find_element_by_xpath(xpath.joinNow_btn_xpath).click()
+    except Exception as e:
+        print(e)
+        WebDriverWait(driver, 3).until(EC.element_to_be_clickable((By.XPATH, xpath.askToJoin_btn_xpath))).click()
+        # driver.find_element_by_xpath(xpath.askToJoin_btn_xpath).click()
+    # Open ChatBox
+    WebDriverWait(driver, 300).until(EC.element_to_be_clickable((By.XPATH, xpath.chat_btn_xpath))).click()
+    # Start Operation
+    greet_teacher()
+    time.sleep(10)   # Time for which you want to wait before spamming
+    start_spamming()
     driver.close()
