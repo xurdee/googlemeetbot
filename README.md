@@ -26,7 +26,7 @@ The program runs in background until you have a good internet connection and pow
  
 # Initial Steps
 
-  * In the credentials.txt file replace the <username> and <password> with your gmailid and password.
+  * In the credentials.txt file replace 'your email' and 'your password' with your gmailid and password.
   
   * In the constants.py replace the url meet with the meeting id.
   
