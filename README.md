@@ -4,6 +4,7 @@ PS: You also have the option to spam the chatBox (But of course use it at your o
 
 ## REQUIREMENTS
       $ pip3 install selenium
+      $ pip3 install pause
       
   I encourage you to work on a virtual enviornment like anaconda
   
