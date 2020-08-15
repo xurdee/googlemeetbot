@@ -10,7 +10,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from constants import Xpath, Id, String, Url
+from constants import Xpath, Id, String, Url, meet_duration
 import time
 import os
 
@@ -55,7 +55,7 @@ def start_spamming():
     while j < 8:
         print(f"loop {j + 1}")
         print(f"{end_time - start_time} seconds")
-        if end_time - start_time < 300.00:  # If running time of script is greater than 60 minutes quit...
+        if end_time - start_time < meet_duration:  # If running time of script is greater than 60 minutes quit...
             for i in range(len(lines)):
                 print(f"quote {i + 1}")
                 try:

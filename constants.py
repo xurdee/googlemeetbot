@@ -1,6 +1,6 @@
 class Url:
     #  Url's
-    url_meet = 'https://meet.google.com/ifa-fttk-aaf'
+    url_meet = 'https://meet.google.com/rjv-tajd-syt'
     url_gLogin = 'https://accounts.google.com/ServiceLogin?service=mail&passive=true&rm=false&continue=https://mail.google.com/mail/&ss=1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1#identifier'
 
 
@@ -27,3 +27,7 @@ class String:
     # Strings
     exit_msg = "GOODBYE FOLKS...CODED WITH LOVE BY 'XURDE'"
     greet_msg = "Good Morning Sir"
+
+
+# In seconds
+meet_duration = 300.00

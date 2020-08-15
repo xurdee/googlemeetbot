@@ -74,6 +74,6 @@ The program runs in background until you have a good internet connection and pow
       
      # python3 mozilla.py
      
- ## Note : The script will run for about an hour once fired up. You can set the running time according to the duration of your class. (Just go to constants.py and change the value of the variable 'running_time'). 
+ ## Note : The script will run for about an hour once fired up. You can set the running time according to the duration of your class. (Just go to constants.py and change the value of the variable 'meet_duration'). 
     
 ### HAVE A NICE DAY  ☕
