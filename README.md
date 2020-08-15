@@ -1,6 +1,6 @@
 # googlemeetbot 🤖
 A Google Meet Bot to attend your online classes instead of you.
-PS: You also have the option to spam the chatBox (But ofcourse use it at your own risk, do not blame me for the consequences that follow).
+PS: You also have the option to spam the chatBox (But of course use it at your own risk. Do not blame me for the consequences that follow).
 
 ## REQUIREMENTS
       $ pip3 install selenium
@@ -29,7 +29,7 @@ The program runs in background until you have a good internet connection and pow
   
   * In the constants.py replace the url meet with the meeting id.
   
-# Working of chrome.py
+# Working Of chrome.py
   
   * Download chromedriver.exe from https://chromedriver.chromium.org/downloads (You can choose the chromedriver that suits the version of your chrome browser. To check your 
     chrome version go to Settings ---> About Chrome  by clicking the three dots in the top right.
@@ -37,19 +37,19 @@ The program runs in background until you have a good internet connection and pow
   * Once chromedriver has been downloaded it will be in form of a zip file , extract the content of the zip file to the project directory. (In the same folder where your chrome.py lies).
   * You can uncomment the pause.until in the chrome.py ie you can set the time and execute when to start the program
   
-  # Note : The headless chrome functionality is buggy and is not working. So i strongly recommend you use Mozilla browser for testing the script.
+## Note : The headless chrome functionality is buggy and is not working. So i strongly recommend you use Mozilla browser for testing the script.
  
-# Working  of mozilla.py 
+# Working Of mozilla.py 
 
   * Download geckodriver from https://github.com/mozilla/geckodriver/releases ( Choose the one that suits your OS).
   
   * Extract and place the geckodriver executable in the project directory. (In the same folder where your mozilla.py lies).
  
- # Note: 
+## Note: 
  * The headless option makes the program to run in background. Even if the program terminates we will be still be the particpants in the meeting.
  * The permission parameters are little different than in chrome-driver.
   
-# How to run the program effectively?
+# How To Run The Program Effectively?
   
   * If you deploy it on cloud then the real fun begins. You no longer have to bother about the internet ,time and other stuff.
   
@@ -63,7 +63,7 @@ The program runs in background until you have a good internet connection and pow
   
   * You can deploy the script on heroku or pythonanywhere too
   
- # HOW TO FIRE THE SCRIPT?
+ # How To Fire The Script?
       
       For chrome browser : 
       
@@ -73,6 +73,6 @@ The program runs in background until you have a good internet connection and pow
       
      # python3 mozilla.py
      
-   # Note : The script will run for about an hour once fired up. You can set the running time according to the duration of your class. (Just go to constants.py and change the value of the variable 'running_time'. 
+ ## Note : The script will run for about an hour once fired up. You can set the running time according to the duration of your class. (Just go to constants.py and change the value of the variable 'running_time'). 
     
 ### HAVE A NICE DAY  ☕
