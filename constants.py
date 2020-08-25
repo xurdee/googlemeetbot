@@ -30,4 +30,4 @@ class String:
 
 
 # In seconds
-meet_duration = 300.00
+meet_duration = 3000.00
